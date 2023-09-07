@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ajax 통신으로 selectBox 내용 가져오기</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery-3.7.0.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+  
+  <style>
+  
+  </style>
+  
+  <script>
+    $(document).ready(function () {
+      // selectbox 의 내용이 변경될 경우 이벤트 발생
+      $("#sel1").on("change", function () {
+        // sel1의 자식 태그 중 selected 속성이 있는 태그의 값을 가져옴
+        const selectValue = $("#sel1 option:selected").val();
+        // 서버로 전송할 데이터 생성
+        const datas = {areaName: selectValue};
+        // ajax 통신 설정
+        $.ajax({
+          url: "/ajax/selectBox1", // 주소
+          type: "POST", // 통신 방식
+          data: datas, // 위에서 생성한 데이터를 설정
+          success: function (data) { // 통신 성공 시 실행할 함수
+            // alert("통신 성공");
+            
+            // 서버에서 전송된 데이터의 길이가 0 이상일 경우 화면 다시 그리기
+            if (data.length > 0) {
+              // 새로 그려줄 태그 선택
+              const sel2 = $("#sel2");
+              sel2.empty(); // 지정한 태그의 자손태그를 모두 삭제
+              
+              // 첫번째 option 태그 추가
+              let opt = "<option value=''>선택하세요</option>";
+              
+              // 서버에서 전송된 내용으로 option 태그 생성
+              for (let i = 0; i < data.length; i++) {
+                opt += "<option value='" + data[i].areaName + "'>" + data[i].areaName + "</option>";
+              }
+              
+              // 지정한 sel2에 생성된 태그를 추가
+              sel2.append(opt);
+            }
+          },
+          error: function () { // 통신 오류 시 실행할 함수
+            alert("ajax 통신 중 오류가 발생했습니다.");
+          }
+        })
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-sm-6 mx-auto">
+        <h3>ajax를 이용하여 select box의 내용 변경하기</h3><br>
+        <div class="row">
+          <div class="col-sm">
+            <select class="form-control me-3" id="sel1">
+              <option value="" selected="selected">선택하세요</option>
+              <option value="서울">서울</option>
+              <option value="대전">대전</option>
+              <option value="대구">대구</option>
+              <option value="부산">부산</option>
+            </select>
+          </div>
+          <div class="col-sm">
+            <select class="form-control" id="sel2">
+              <option value="">선택하세요</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

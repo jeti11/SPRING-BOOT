@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>quiz1</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery-3.7.0.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+
+  <style>
+  
+  </style>
+  
+  <script>
+    // 문제 1) ajaxCalView 파일을 참고하여 계산기 프로그램을 작성하세요
+    // * 입력 데이터 3개 (숫자1, 숫자2, 연산자)
+    // * 연산자는 +, -, *, /
+    // 입력된 숫자와 연산자를 선택하고 '계산' 버튼 클릭 시 화면 아래에 연산 결과가 출력되야 함
+    // alert()를 사용하여 연산 결과를 출력해도 상관없음
+    
+    $(document).ready(function () {
+      $("#btn-cal").on('click', function () {
+        const num1 = $("#num1").val();
+        const num2 = $("#num2").val();
+        const cal = $("#cal").val();
+        
+        $.ajax({
+          url: "/ajax/quiz1Process",
+          type : "POST",
+          data: {num1: num1, num2: num2, cal: cal},
+          dataType: "json",
+          
+          success: function (data) {
+            if (data.result == "success") {
+              $("#result").val(data.value);
+            }
+            else if (data.result == "error") {
+              alert("연산 시 오류가 발생했습니다.");
+            }
+          },
+          error: function () {
+            alert("ajax 통신 중 오류가 발생했습니다.");
+          }
+        })
+      })
+    })
+  </script>
+</head>
+<body>
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-sm-4 mx-auto">
+        <div class="my-3">
+          <label for="num1" class="form-label">첫번째 숫자 : </label>
+          <input type="text" class="form-control" id="num1" name="num1" placeholder="숫자를 입력하세요">
+        </div>
+        <div class="my-3">
+          <label for="cal" class="form-label">연산기호</label>
+          <input type="text" class="form-control" id="cal" name="cal">
+        </div>
+        <div class="my-3">
+          <label for="num2" class="form-label">두번째 숫자 : </label>
+          <input type="text" class="form-control" id="num2" name="num2" placeholder="숫자를 입력하세요">
+        </div>
+        <div class="my-3 d-grid gap-3">
+          <button type="button" class="btn btn-primary" id="btn-cal">계산</button>
+        </div>
+        <div class="mt-4 border-top">
+          <div class="my-3">
+            <label for="result" class="form-label">계산 결과</label>
+            <input type="text" class="form-control" id="result" name="result" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

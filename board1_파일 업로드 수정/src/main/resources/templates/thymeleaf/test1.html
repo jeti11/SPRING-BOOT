@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery-3.7.0.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+  
+  <style>
+  
+  </style>
+  
+  <script>
+  
+  </script>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>thymeleaf 문법 사용하기</h1>
+    <h3>thymeleaf 사용 선언</h3>
+    <!--    thymeleaf : Spring Framework에서 공식 지원하는 템플릿 엔진-->
+    <!--    JSP는 Spring Framework에서 더이상 공식 지원하지 않음-->
+    <!--    JSP를 사용하고자 할 경우, 추가 설정이 필요함-->
+    
+    
+    <!--    gradle 설정에서 종속성을 추가해야 thymeleaf를 사용할 수 있음-->
+    <!--    application.properties에 설정을 추가하여 사용할 수 있음, 설정을 추가하지 않으면 기본 설정으로 동작함 -->
+    <!--    spring.thymeleaf.enabled=true : thymeleaf 사용-->
+    <!--    spring.thymeleaf.cache=false : cash 사용, 사용 시 컴파일한 파일만 사용함, 개발 시엔 미사용-->
+    <!--    spring.thymeleaf.prefix=classpath:templates : 템플릿 파일 위치 지정 -->
+    <!--    spring.thymeleaf.suffix=.html : view 파일의 기본 확장자 설정 -->
+    
+    <!--    html 태그에 xmlns:th 속성을 추가하여 해당 html 에서 thymeleaf를 사용 설정함-->
+    
+    <br>
+    <hr>
+    <br>
+    
+    <h3>표현식</h3>
+    <!--    ${변수 or 데이터} : 타임리프가 가지고 있는 데이터를 화면에 출력-->
+    <!--    해당 표현식 안에서 간단한 연산식도 사용이 가능-->
+    
+    <div>
+      <p>html에 직접 입력한 문자열</p>
+      <p th:text="${value1}">서버에서 전송된 데이터로 변경될 문자열</p>
+      <p th:text="${value2}">서버에서 전달된 데이터로 변경될 문자열</p>
+    </div>
+    
+    <br>
+    <hr>
+    <br>
+    
+    <h3>th:text</h3>
+  <!--  thymeleaf에서 문자열을 표시하기 위한 명령어-->
+  <!--  1. 서버에서 전달된 데이터를 출력하기 위해 사용-->
+  <!--  2. 미리 문자열 세트를 properties 파일에 생성해 놓고 사용할 수 있음-->
+  <!--  메시지 리소스 번들 사용 시 #{} 형식으로 사용해야 함-->
+    <div>
+      <p>html에 직접 입력한 문자열</p>
+      <p th:text="#{hello}">리소스 번들에서 지정된 문자열</p>
+      <p th:text="#{phone}">리소스 번들에서 지정된 문자열</p>
+    </div>
+  
+    <br>
+    <hr>
+    <br>
+    
+    <h3>th:utext</h3>
+<!--    th:text와 기본적으로 동일한 기능을 제공-->
+<!--    th:utext는 html 태그 사용이 가능함-->
+    <p>html 태그에 직접 문자열 출력</p>
+    <p>html 태그에 직접 <strong>문자열</strong> 출력</p>
+    <p th:text="${utext}">서버에서 전달된 데이터로 변환될 문자열</p>
+    <p th:utext="${utext}">서버에서 전달된 데이터로 변환될 문자열</p>
+  
+    <br>
+    <hr>
+    <br>
+    
+    <h3>thymeleaf로 링크 주소 표시</h3>
+<!--    thymeleaf에서 링크 주소를 표기할 경우 @{} 를 사용하여 표시-->
+<!--    웹디자이너와 협업 시 디자이너가 임시로 적용해놓은 주소와 개발자가 실제 사용할 주소를 함께 표기하여 협업이 가능-->
+<!--    모든 url에 대해서 @{}형식으로 사용이 가능함-->
+    <img src="/images/lake_1.jpg"><br>
+    <img src="/images/lake_1.jpg" th:src="@{/images/lake_1.jpg}"><br>
+    
+<!--    파라미터를 사용할 경우-->
+    <a href="/board/openBoardDetail.do?boardIdx=" th:attrappend="href=${idx}">상세 글 보기</a>
+    <a th:href="@{/board/openBoardDetail.do?boardIdx=${Idx}}">상세 글 보기</a>
+    <a href="@{/board/openBoardDetail.do(boardIdx=${idx})}">상세 글 보기</a>
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

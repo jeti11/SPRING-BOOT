@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajax 를 사용하지 않는 계산 결과</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery-3.7.0.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+  
+  <style>
+  
+  </style>
+  
+  <script>
+  
+  </script>
+</head>
+<body>
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-sm-4 mx-auto">
+        <div class="my-3">
+          <label for="num1" class="form-label">첫번째 숫자 : </label>
+          <input type="text" class="form-control" id="num1" name="num1" th:value="${num1}">
+        </div>
+        <div class="my-3">
+          <label for="num2" class="form-label">두번째 숫자 : </label>
+          <input type="text" class="form-control" id="num2" name="num2" th:value="${num2}">
+        </div>
+        <div class="my-3">
+          <label for="result" class="form-label">두 수의 합 : </label>
+          <input type="text" class="form-control" id="result" name="result" th:value="${result}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{/layout/footer :: footer}"></div>
+</body>
+</html>

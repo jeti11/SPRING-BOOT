@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.springboard_bsw.mapper.BoardMapper">
+	<select id="selectBoardList" resultType="com.bitc.springboard_bsw.dto.BoardDTO">
+		SELECT idx, title, create_id, create_dt, hit_cnt FROM spring_board_bsw
+		WHERE deleted_yn = 'N'
+		ORDER BY idx DESC
+	</select>
+	
+	<select id="selectBoardDetail" parameterType="int" resultType="com.bitc.springboard_bsw.dto.BoardDTO">
+		SELECT idx, title, content, create_id, create_dt, update_id, update_dt, hit_cnt
+		FROM spring_board_bsw
+		WHERE idx = #{idx} AND deleted_yn = 'N'
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.bitc.springboard_bsw.dto.BoardDTO">
+		INSERT INTO spring_board_bsw (title, content, create_id, create_dt)
+		VALUES (#{title}, #{content}, #{createId}, NOW())
+	</insert>
+	
+	<update id="updateBoard" parameterType="com.bitc.springboard_bsw.dto.BoardDTO">
+		UPDATE spring_board_bsw
+		SET title = #{title},
+		content = #{content},
+		update_id = #{updateId},
+		update_dt = NOW()
+		WHERE idx = #{idx}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		UPDATE spring_board_bsw
+		SET deleted_yn = 'Y'
+		WHERE idx = #{idx}
+	</delete>
+	
+	<update id="updateHitCnt" parameterType="int">
+		UPDATE spring_board_bsw
+		SET hit_cnt = hit_cnt + 1
+		WHERE idx = #{idx}
+	</update>
+</mapper>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>글쓰기 페이지</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery-3.7.0.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+  
+  <style>
+  
+  </style>
+  
+  <script>
+    $(document).ready(function () {
+      $("#btn-cancel").on('click', function () {
+        history.back();
+      })
+    })
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container my-4">
+      <div class="text-center">
+        <h1>스프링부트로 게시판 만들기</h1>
+        <h3>게시판 글쓰기 페이지</h3>
+      </div>
+    </div>
+  </header>
+  <main class="container my-4">
+    <div class="row">
+      <div class="col-sm-4 mx-auto">
+<!--        파일 업로드를 위해서 form태그의 enctype="multipart/form-data" 속성 추가-->
+        <form action="/board/insertBoard.do" method="post" enctype="multipart/form-data">
+          <div class="my-3">
+            <label for="title" class="form-label">글제목</label>
+<!--            input 태그의 name 속성값을 DTO 클래스의 필드명으로 설정해야 함-->
+            <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요">
+          </div>
+          <div class="my-3">
+            <label for="create-id" class="form-label">사용자</label>
+            <input type="text" class="form-control" id="create-id" name="createId" placeholder="사용자 ID를 입력하세요">
+          </div>
+          <div class="my-3">
+            <label for="contents" class="form-label">내용</label>
+            <textarea class="form-control" id="contents" name="contents" rows="5" placeholder="글 내용을 입력하세요"></textarea>
+          </div>
+<!--          첨부파일 등록하는 input태그 추가-->
+          <div class="my-3">
+<!--            multiple : 파일 여러개 추가할 수 있도록 하는 속성-->
+            <label for="files" class="form-label">첨부파일</label>
+            <input type="file" class="form-control" id="files" name="files" multiple>
+          </div>
+          <div class="my-3 d-grid gap-3">
+            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="reset" class="btn btn-secondary" id="btn-cancel">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer class="container-fluid border-top p-5 mt-5 text-center">
+    <p class="lead text-muted">made by fullstack 505</p>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

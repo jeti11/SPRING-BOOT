@@ -1,0 +1,3 @@
+application 이름 : bmn
+Client ID : 92vw1jqd4q 
+Client Secret : s4WNls61g8FuYlaYmHdp1ZdUv7tgs12Jvnl2DYbm
